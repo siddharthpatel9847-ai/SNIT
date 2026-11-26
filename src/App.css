@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 * {
@@ -29,8 +30,7 @@ button {
 .app {
   min-height: 100vh;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 0%, #202020 0%, #080808 48%);
+  background: radial-gradient(ellipse at 50% 0%, #202020 0%, #080808 48%);
 }
 
 .navbar {
