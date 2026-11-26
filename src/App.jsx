@@ -14,7 +14,7 @@ const effects = [
   { name: "Floating Effect", type: "floating", description: "Smooth floating animation." },
   { name: "Glitch Effect", type: "glitch", description: "Digital glitch-style animation." },
   { name: "Spotlight", type: "spotlight", description: "Spotlight background effect." },
-  { name: "Scroll Reveal", type: "scroll", description: "Floating preview animation." },
+  { name: "Scroll Reveal", type: "scroll", description: "Reveal elements while scrolling." },
   { name: "Morphing Shapes", type: "morph", description: "Continuously changing geometric shapes." },
   { name: "Matrix Rain", type: "matrix", description: "Digital code animation." },
   { name: "Holographic Card", type: "holographic", description: "Color-shifting holographic surface." },
@@ -23,196 +23,262 @@ const effects = [
   { name: "Electric Pulse", type: "electric", description: "Pulsing electric energy effect." }
 ];
 
-const cssCode = {
-  neon: `.neon-text {
+const snippets = {
+  neon: {
+    html: `<div class="neon-demo">NEON GLOW</div>`,
+    css: `.neon-demo {
   color: white;
-  text-shadow: 0 0 8px #a78bfa,
-               0 0 25px #a78bfa,
-               0 0 50px #7c3aed;
+  padding: 25px;
+  border: 1px solid #a78bfa;
+  border-radius: 12px;
+  text-shadow: 0 0 8px #a78bfa, 0 0 25px #a78bfa;
+  box-shadow: 0 0 15px #a78bfa;
   animation: neonPulse 2s infinite alternate;
 }
-
 @keyframes neonPulse {
-  from { opacity: .55; }
-  to { opacity: 1; }
-}`,
-  glass: `.glass-card {
-  padding: 25px 38px;
-  border: 1px solid #ffffff70;
-  border-radius: 12px;
-  background: #ffffff18;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 30px #ffffff12;
-}`,
-  tilt: `.tilt-card {
-  background: linear-gradient(135deg, #a78bfa, #4338ca);
+  to { box-shadow: 0 0 35px #a78bfa; }
+}`
+  },
+  glass: {
+    html: `<div class="glass-demo">GLASSMORPHISM</div>`,
+    css: `.glass-demo {
   padding: 35px;
-  border-radius: 12px;
-  transform: perspective(300px) rotateY(-20deg) rotateX(10deg);
+  color: white;
+  border: 1px solid #ffffff70;
+  border-radius: 15px;
+  background: #ffffff20;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px #ffffff20;
+}`
+  },
+  tilt: {
+    html: `<div class="tilt-demo">3D CARD</div>`,
+    css: `.tilt-demo {
+  padding: 35px;
+  color: white;
+  background: linear-gradient(135deg, #a78bfa, #4338ca);
+  border-radius: 15px;
+  transform: perspective(500px) rotateY(-15deg) rotateX(8deg);
   box-shadow: 12px 15px 30px #0008;
-}`,
-  magnetic: `.magnetic-button {
+}`
+  },
+  magnetic: {
+    html: `<button class="magnetic-demo">HOVER ME</button>`,
+    css: `.magnetic-demo {
+  padding: 18px 30px;
   border: 1px solid #a78bfa;
   border-radius: 30px;
-  padding: 20px 35px;
-  transition: .3s;
+  background: #171225;
+  color: white;
+  transition: transform .3s, background .3s;
 }
-
-.magnetic-button:hover {
+.magnetic-demo:hover {
   transform: scale(1.15);
-  background: #a78bfa;
-  color: #080808;
-}`,
-  gradient: `.gradient-bg {
+  background: #7c3aed;
+}`
+  },
+  gradient: {
+    html: `<div class="gradient-demo">GRADIENT</div>`,
+    css: `.gradient-demo {
+  padding: 35px;
+  color: white;
+  border-radius: 12px;
   background: linear-gradient(120deg, #25104a, #153b68, #4b145d);
   background-size: 300% 300%;
   animation: gradientMove 5s ease infinite;
 }
-
 @keyframes gradientMove {
-  0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}`,
-  particles: `.particle {
-  width: 5px;
-  height: 5px;
-  background: #a78bfa;
-  border-radius: 50%;
-  box-shadow: 0 0 15px #a78bfa;
-  animation: particleFloat 3s ease-in-out infinite alternate;
-}
-
-@keyframes particleFloat {
-  to { transform: translate(15px, -25px); opacity: .3; }
-}`,
-  ripple: `.ripple-button {
-  background: #a78bfa;
-  border: 0;
-  padding: 16px 28px;
-  border-radius: 30px;
-  font-weight: 800;
-  color: #080808;
-  position: relative;
+}`
+  },
+  particles: {
+    html: `<div class="particles-demo"><i></i><i></i><i></i><i></i><b>PARTICLES</b></div>`,
+    css: `.particles-demo {
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: #111;
+  color: white;
   overflow: hidden;
 }
-
-.ripple-button::after {
+.particles-demo i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 15px #a78bfa;
+  animation: particleMove 2s infinite alternate;
+}
+.particles-demo i:nth-child(even) { animation-delay: .7s; }
+@keyframes particleMove {
+  to { transform: translateY(-35px); opacity: .3; }
+}`
+  },
+  ripple: {
+    html: `<button class="ripple-demo">CLICK ME</button>`,
+    css: `.ripple-demo {
+  position: relative;
+  overflow: hidden;
+  padding: 16px 28px;
+  border: 0;
+  border-radius: 30px;
+  background: #a78bfa;
+  color: #080808;
+  font-weight: 800;
+}
+.ripple-demo::after {
   content: "";
   position: absolute;
   inset: 0;
   border: 2px solid white;
-  border-radius: 30px;
+  border-radius: inherit;
   animation: ripple 1.5s infinite;
 }
-
 @keyframes ripple {
-  from { transform: scale(1); opacity: 1; }
   to { transform: scale(1.6); opacity: 0; }
-}`,
-  reveal: `.reveal-text {
-  font-size: 35px;
-  letter-spacing: 5px;
-  animation: revealText 2s infinite;
+}`
+  },
+  reveal: {
+    html: `<div class="reveal-demo">TEXT REVEAL</div>`,
+    css: `.reveal-demo {
+  color: white;
+  font-size: 25px;
+  font-weight: 900;
+  animation: reveal 2s infinite;
 }
-
-@keyframes revealText {
+@keyframes reveal {
   0% { clip-path: inset(0 100% 0 0); }
-  50%, 100% { clip-path: inset(0 0 0 0); }
-}`,
-  floating: `.floating-element {
+  50%, 100% { clip-path: inset(0); }
+}`
+  },
+  floating: {
+    html: `<div class="floating-demo">FLOATING</div>`,
+    css: `.floating-demo {
+  display: inline-block;
+  padding: 25px;
+  color: white;
+  background: #282044;
+  border-radius: 12px;
   animation: floating 3s ease-in-out infinite;
 }
-
 @keyframes floating {
-  0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-18px); }
-}`,
-  glitch: `.glitch-text {
+}`
+  },
+  glitch: {
+    html: `<div class="glitch-demo" data-text="GLITCH">GLITCH</div>`,
+    css: `.glitch-demo {
+  color: white;
   font-size: 30px;
   font-weight: 900;
   text-shadow: 3px 0 #a78bfa, -3px 0 #38bdf8;
   animation: glitch 1s infinite;
 }
-
 @keyframes glitch {
-  0%, 100% { transform: translate(0); }
   25% { transform: translate(2px, -2px); }
   50% { transform: translate(-2px, 2px); }
   75% { transform: translate(1px, 1px); }
-}`,
-  spotlight: `.spotlight {
-  background: radial-gradient(circle at 50% 50%, #7252b8, #181818 55%);
+}`
+  },
+  spotlight: {
+    html: `<div class="spotlight-demo">SPOTLIGHT</div>`,
+    css: `.spotlight-demo {
+  padding: 40px;
   color: white;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 50%, #7252b8, #181818 65%);
   text-shadow: 0 0 20px white;
-}`,
-  scroll: `.scroll-element {
-  animation: floating 2.5s infinite;
+}`
+  },
+  scroll: {
+    html: `<div class="scroll-demo">SCROLL REVEAL</div>`,
+    css: `.scroll-demo {
+  padding: 25px;
+  color: white;
+  background: #282044;
+  border-radius: 12px;
+  animation: scrollReveal linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
-
-@keyframes floating {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-18px); }
-}`,
-  morph: `.morph-shape {
+@keyframes scrollReveal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}`
+  },
+  morph: {
+    html: `<div class="morph-demo"></div>`,
+    css: `.morph-demo {
   width: 100px;
   height: 100px;
   background: linear-gradient(135deg, #a78bfa, #2563eb);
   border-radius: 30%;
-  animation: morph 4s ease-in-out infinite;
+  animation: morph 4s infinite;
 }
-
 @keyframes morph {
-  0%, 100% { border-radius: 30%; transform: rotate(0deg); }
   50% { border-radius: 50%; transform: rotate(180deg); }
-}`,
-  matrix: `.matrix-code {
+}`
+  },
+  matrix: {
+    html: `<div class="matrix-demo">01 10 11<br>10 01 00<br>11 00 10</div>`,
+    css: `.matrix-demo {
+  padding: 20px;
   color: #39ff88;
+  background: #050a07;
   font-family: monospace;
   font-size: 22px;
   line-height: 1.6;
   letter-spacing: 8px;
   text-shadow: 0 0 12px #39ff88;
-  animation: matrixMove 2s linear infinite;
+  animation: matrixMove 2s infinite alternate;
 }
-
 @keyframes matrixMove {
-  from { transform: translateY(-20px); opacity: .4; }
-  to { transform: translateY(20px); opacity: 1; }
-}`,
-  holographic: `.holographic {
+  to { transform: translateY(12px); opacity: .5; }
+}`
+  },
+  holographic: {
+    html: `<div class="holographic-demo">SNIT<br>HOLOGRAM</div>`,
+    css: `.holographic-demo {
+  padding: 35px;
+  color: white;
+  text-align: center;
+  border: 1px solid #ffffff80;
+  border-radius: 15px;
   background: linear-gradient(120deg, #25104a, #075985, #831843, #25104a);
   background-size: 300% 300%;
-  animation: holoBackground 4s ease infinite;
+  animation: holo 4s infinite;
 }
-
-@keyframes holoBackground {
-  0%, 100% { background-position: 0% 50%; }
+@keyframes holo {
   50% { background-position: 100% 50%; }
-}`,
-  laser: `.laser-box {
-  padding: 25px 40px;
+}`
+  },
+  laser: {
+    html: `<div class="laser-demo">LASER BORDER</div>`,
+    css: `.laser-demo {
+  padding: 25px;
+  color: white;
   border: 2px solid #a78bfa;
   border-radius: 12px;
-  color: white;
-  font-weight: 900;
-  animation: laserPulse 1.5s ease-in-out infinite alternate;
+  animation: laser 1.5s infinite alternate;
 }
-
-@keyframes laserPulse {
-  from { box-shadow: 0 0 5px #a78bfa; }
+@keyframes laser {
   to { box-shadow: 0 0 25px #a78bfa, 0 0 45px #7c3aed; }
-}`,
-  scanner: `.scanner-box {
+}`
+  },
+  scanner: {
+    html: `<div class="scanner-demo">SCANNING...</div>`,
+    css: `.scanner-demo {
   position: relative;
   overflow: hidden;
-  padding: 30px 10px;
-  border: 1px solid #38bdf8;
+  padding: 30px;
   color: #38bdf8;
+  border: 1px solid #38bdf8;
+  background: #07131b;
   font-family: monospace;
 }
-
-.scanner-box::after {
+.scanner-demo::after {
   content: "";
   position: absolute;
   top: 0;
@@ -220,60 +286,49 @@ const cssCode = {
   width: 60%;
   height: 100%;
   background: linear-gradient(90deg, transparent, #38bdf855, transparent);
-  animation: scanMove 2s linear infinite;
+  animation: scan 2s linear infinite;
 }
-
-@keyframes scanMove {
+@keyframes scan {
   to { left: 150%; }
-}`,
-  electric: `.electric-core {
+}`
+  },
+  electric: {
+    html: `<div class="electric-demo">⚡ ENERGY</div>`,
+    css: `.electric-demo {
   color: #facc15;
+  font-size: 25px;
   font-weight: 900;
-  font-size: 22px;
   text-shadow: 0 0 8px #facc15, 0 0 25px #f97316;
-  animation: electricPulse .8s ease-in-out infinite alternate;
+  animation: electric .8s infinite alternate;
 }
-
-@keyframes electricPulse {
-  from { transform: scale(.95); opacity: .7; }
+@keyframes electric {
   to { transform: scale(1.08); opacity: 1; }
 }`
+  }
 };
 
 function EffectPreview({ type }) {
-  if (type === "particles") {
-    return (
-      <>
-        {Array.from({ length: 12 }).map((_, i) => (
-          <i key={i} style={{ "--i": i }} />
-        ))}
-        <b>PARTICLES</b>
-      </>
-    );
-  }
-
-  if (type === "ripple") return <button className="ripple-button">CLICK ME</button>;
-  if (type === "glitch") return <b>GLITCH</b>;
-  if (type === "reveal") return <b>REVEAL</b>;
-  if (type === "morph") return <div className="morph-shape" />;
-  if (type === "matrix") return <div className="matrix-code">01 10 11<br />10 01 00<br />11 00 10</div>;
-  if (type === "holographic") return <div className="holo-card">SNIT<br />HOLOGRAM</div>;
-  if (type === "laser") return <div className="laser-box">LASER</div>;
-  if (type === "scanner") return <div className="scanner-box">SCANNING...</div>;
-  if (type === "electric") return <div className="electric-core">⚡ ENERGY</div>;
-
-  const labels = {
-    neon: "NEON",
-    glass: "GLASS",
-    tilt: "3D",
-    magnetic: "MOVE",
-    gradient: "COLOR",
-    floating: "FLOAT",
-    spotlight: "LIGHT",
-    scroll: "SCROLL"
+  const preview = {
+    neon: <div className="neon-demo">NEON GLOW</div>,
+    glass: <div className="glass-demo">GLASS</div>,
+    tilt: <div className="tilt-demo">3D CARD</div>,
+    magnetic: <button className="magnetic-demo">HOVER ME</button>,
+    gradient: <div className="gradient-demo">GRADIENT</div>,
+    particles: <div className="particles-demo"><i /><i /><i /><i /><b>PARTICLES</b></div>,
+    ripple: <button className="ripple-demo">CLICK ME</button>,
+    reveal: <div className="reveal-demo">TEXT REVEAL</div>,
+    floating: <div className="floating-demo">FLOATING</div>,
+    glitch: <div className="glitch-demo">GLITCH</div>,
+    spotlight: <div className="spotlight-demo">SPOTLIGHT</div>,
+    scroll: <div className="scroll-demo">SCROLL REVEAL</div>,
+    morph: <div className="morph-demo" />,
+    matrix: <div className="matrix-demo">01 10 11<br />10 01 00<br />11 00 10</div>,
+    holographic: <div className="holographic-demo">SNIT<br />HOLOGRAM</div>,
+    laser: <div className="laser-demo">LASER BORDER</div>,
+    scanner: <div className="scanner-demo">SCANNING...</div>,
+    electric: <div className="electric-demo">⚡ ENERGY</div>
   };
-
-  return <div className="preview-object">{labels[type]}</div>;
+  return preview[type];
 }
 
 function App() {
@@ -292,13 +347,9 @@ function App() {
       await navigator.clipboard.writeText(code);
       setCopyStatus("Copied successfully!");
     } catch {
-      setCopyStatus("Copy failed. Please select and copy the code manually.");
+      setCopyStatus("Copy failed. Select the code and copy manually.");
     }
   };
-
-  const htmlCode = selected
-    ? `<div class="${selected.type}">\n  <div class="${selected.type}-element">${selected.name}</div>\n</div>`
-    : "";
 
   return (
     <div className="app">
@@ -316,7 +367,7 @@ function App() {
       <main>
         <section className="hero" id="home">
           <div className="hero-badge">
-            <span className="live-dot"></span>
+            <span className="live-dot" />
             CREATIVE DEVELOPMENT STUDIO
           </div>
           <h1>DESIGN BEYOND<br /><span>LIMITS.</span></h1>
@@ -326,17 +377,10 @@ function App() {
           </p>
           <div className="hero-actions">
             <a href="#effects" className="primary-button">Explore Effects ↗</a>
-            <a
-              href="https://github.com/siddharthpatel24347-dev"
-              target="_blank"
-              rel="noreferrer"
-              className="secondary-button"
-            >
-              GitHub Profile
-            </a>
+            <a href="https://github.com/siddharthpatel24347-dev" target="_blank" rel="noreferrer" className="secondary-button">GitHub Profile</a>
           </div>
-          <div className="hero-orb orb-one"></div>
-          <div className="hero-orb orb-two"></div>
+          <div className="hero-orb orb-one" />
+          <div className="hero-orb orb-two" />
         </section>
 
         <section className="stats">
@@ -362,23 +406,15 @@ function App() {
                   <span>EXPERIMENT {String(index + 1).padStart(2, "0")}</span>
                   <span>↗</span>
                 </div>
-
                 <div className={`effect-preview ${effect.type}`}>
                   <EffectPreview type={effect.type} />
                 </div>
-
                 <div className="card-bottom">
                   <div>
                     <h3>{effect.name}</h3>
                     <p>{effect.description}</p>
                   </div>
-                  <button
-                    className="view-button"
-                    onClick={() => openEffect(effect)}
-                    aria-label={`View ${effect.name} details`}
-                  >
-                    ↗
-                  </button>
+                  <button className="view-button" onClick={() => openEffect(effect)} aria-label={`View ${effect.name} details`}>↗</button>
                 </div>
               </article>
             ))}
@@ -393,24 +429,14 @@ function App() {
             modern web development, animations, user interfaces
             and interactive digital experiments.
           </p>
-          <a href="https://github.com/siddharthpatel24347-dev"
-             target="_blank" rel="noreferrer">
-            Explore GitHub ↗
-          </a>
+          <a href="https://github.com/siddharthpatel24347-dev" target="_blank" rel="noreferrer">Explore GitHub ↗</a>
         </section>
 
         <section className="contact-section" id="contact">
           <span className="eyebrow">LET'S CONNECT</span>
           <h2>Have an idea?</h2>
           <p>Explore my work and connect through GitHub.</p>
-          <a
-            href="https://github.com/siddharthpatel24347-dev"
-            target="_blank"
-            rel="noreferrer"
-            className="primary-button"
-          >
-            Connect on GitHub ↗
-          </a>
+          <a href="https://github.com/siddharthpatel24347-dev" target="_blank" rel="noreferrer" className="primary-button">Connect on GitHub ↗</a>
         </section>
       </main>
 
@@ -423,14 +449,7 @@ function App() {
       {selected && (
         <div className="modal-backdrop" onClick={() => setSelected(null)}>
           <div className="modal effect-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="modal-close"
-              onClick={() => setSelected(null)}
-              aria-label="Close"
-            >
-              ×
-            </button>
-
+            <button className="modal-close" onClick={() => setSelected(null)} aria-label="Close">×</button>
             <span className="eyebrow">EFFECT DETAILS</span>
             <h2>{selected.name}</h2>
             <p>{selected.description}</p>
@@ -440,48 +459,27 @@ function App() {
             </div>
 
             <div className="code-tabs">
-              <button
-                className={activeTab === "preview" ? "active" : ""}
-                onClick={() => setActiveTab("preview")}
-              >
-                Preview
-              </button>
-              <button
-                className={activeTab === "html" ? "active" : ""}
-                onClick={() => setActiveTab("html")}
-              >
-                HTML Code
-              </button>
-              <button
-                className={activeTab === "css" ? "active" : ""}
-                onClick={() => setActiveTab("css")}
-              >
-                CSS Code
-              </button>
+              <button className={activeTab === "preview" ? "active" : ""} onClick={() => setActiveTab("preview")}>Preview</button>
+              <button className={activeTab === "html" ? "active" : ""} onClick={() => setActiveTab("html")}>HTML Code</button>
+              <button className={activeTab === "css" ? "active" : ""} onClick={() => setActiveTab("css")}>CSS Code</button>
             </div>
 
             {activeTab === "preview" && (
-              <p className="modal-note">
-                Live preview of the selected CSS effect.
-                Choose HTML Code or CSS Code to view the example.
-              </p>
+              <p className="modal-note">Live preview. Select HTML Code or CSS Code to view and copy the matching example.</p>
             )}
 
             {activeTab === "html" && (
-              <pre className="effect-code"><code>{htmlCode}</code></pre>
+              <>
+                <pre className="effect-code"><code>{snippets[selected.type].html}</code></pre>
+                <button className="primary-button copy-button" onClick={() => copyCode(snippets[selected.type].html)}>Copy HTML Code</button>
+              </>
             )}
 
             {activeTab === "css" && (
-              <pre className="effect-code"><code>{cssCode[selected.type]}</code></pre>
-            )}
-
-            {activeTab !== "preview" && (
-              <button
-                className="primary-button copy-button"
-                onClick={() => copyCode(activeTab === "html" ? htmlCode : cssCode[selected.type])}
-              >
-                Copy {activeTab === "html" ? "HTML" : "CSS"} Code
-              </button>
+              <>
+                <pre className="effect-code"><code>{snippets[selected.type].css}</code></pre>
+                <button className="primary-button copy-button" onClick={() => copyCode(snippets[selected.type].css)}>Copy CSS Code</button>
+              </>
             )}
 
             {copyStatus && <p className="copy-status">{copyStatus}</p>}
