@@ -15,7 +15,12 @@ const effects = [
   { name: "Glitch Effect", type: "glitch", description: "Digital glitch-style animation." },
   { name: "Spotlight", type: "spotlight", description: "Light follows the pointer." },
   { name: "Scroll Reveal", type: "scroll", description: "Animated entrance on scrolling." },
-  { name: "Morphing Shapes", type: "morph", description: "Continuously changing geometric shapes." }
+  { name: "Morphing Shapes", type: "morph", description: "Continuously changing geometric shapes." },
+  { name: "Matrix Rain", type: "matrix", description: "Falling digital code animation." },
+  { name: "Holographic Card", type: "holographic", description: "Color-shifting holographic surface." },
+  { name: "Laser Border", type: "laser", description: "Animated laser border effect." },
+  { name: "Cyber Scanner", type: "scanner", description: "Scanning light across a cyber panel." },
+  { name: "Electric Pulse", type: "electric", description: "Pulsing electric energy effect." }
 ];
 
 function App() {
@@ -41,11 +46,7 @@ function App() {
             CREATIVE DEVELOPMENT STUDIO
           </div>
 
-          <h1>
-            DESIGN BEYOND
-            <br />
-            <span>LIMITS.</span>
-          </h1>
+          <h1>DESIGN BEYOND<br /><span>LIMITS.</span></h1>
 
           <p>
             Exploring interactive animations, creative effects,
@@ -53,9 +54,7 @@ function App() {
           </p>
 
           <div className="hero-actions">
-            <a href="#effects" className="primary-button">
-              Explore Effects ↗
-            </a>
+            <a href="#effects" className="primary-button">Explore Effects ↗</a>
             <a
               href="https://github.com/siddharthpatel24347-dev"
               target="_blank"
@@ -71,7 +70,7 @@ function App() {
         </section>
 
         <section className="stats">
-          <div><strong>13+</strong><span>Visual Effects</span></div>
+          <div><strong>18+</strong><span>Visual Effects</span></div>
           <div><strong>100%</strong><span>Interactive Demo</span></div>
           <div><strong>01</strong><span>Creative Lab</span></div>
         </section>
@@ -83,7 +82,7 @@ function App() {
               <h2>Interactive Effects Lab</h2>
               <p>Explore each effect. Hover, click and interact.</p>
             </div>
-            <span className="effect-count">13 EXPERIMENTS</span>
+            <span className="effect-count">18 EXPERIMENTS</span>
           </div>
 
           <div className="effects-grid">
@@ -110,6 +109,16 @@ function App() {
                     <b>REVEAL</b>
                   ) : effect.type === "morph" ? (
                     <div className="morph-shape"></div>
+                  ) : effect.type === "matrix" ? (
+                    <div className="matrix-code">01 10 11<br />10 01 00<br />11 00 10</div>
+                  ) : effect.type === "holographic" ? (
+                    <div className="holo-card">SNIT<br />HOLOGRAM</div>
+                  ) : effect.type === "laser" ? (
+                    <div className="laser-box">LASER</div>
+                  ) : effect.type === "scanner" ? (
+                    <div className="scanner-box">SCANNING...</div>
+                  ) : effect.type === "electric" ? (
+                    <div className="electric-core">⚡ ENERGY</div>
                   ) : (
                     <div className="preview-object">
                       {effect.type === "neon" && "NEON"}
