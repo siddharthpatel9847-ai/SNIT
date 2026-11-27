@@ -49,7 +49,7 @@ button {
 .logo {
   font-size: 27px;
   font-weight: 900;
-  letter-spacing: -2px;
+  letter-spacing: 5px;
 }
 
 .logo span {
@@ -58,7 +58,7 @@ button {
 
 .nav-links {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   color: #aaa;
   font-size: 13px;
 }
@@ -198,7 +198,9 @@ footer a:hover {
 }
 
 @keyframes orbFloat {
-  to { transform: translateY(-30px) scale(1.1); }
+  to {
+    transform: translateY(-30px) scale(1.1);
+  }
 }
 
 .stats {
@@ -236,7 +238,7 @@ footer a:hover {
 .effects-section {
   width: min(1200px, 92%);
   margin: auto;
-  padding: 110px 0;
+  padding: 130px 0;
 }
 
 .section-heading {
@@ -244,7 +246,7 @@ footer a:hover {
   justify-content: space-between;
   align-items: end;
   gap: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .section-heading h2,
@@ -274,12 +276,12 @@ footer a:hover {
 .effects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 28px;
 }
 
 .effect-card {
   min-width: 0;
-  padding: 15px;
+  padding: 20px;
   border: 1px solid #ffffff18;
   border-radius: 14px;
   background: linear-gradient(145deg, #17131f, #0d0d0d);
@@ -351,11 +353,98 @@ footer a:hover {
   border-color: #a78bfa;
 }
 
+/* PERSON VIDEO EFFECTS LAB */
+
+.video-lab-section {
+  width: min(1000px, 92%);
+  margin: 0 auto;
+  padding: 110px 0;
+  border-top: 1px solid #ffffff18;
+}
+
+.video-lab-section .section-heading {
+  margin-bottom: 35px;
+}
+
+.video-upload {
+  display: block;
+  width: 100%;
+  padding: 35px;
+  border: 1px dashed #a78bfa80;
+  border-radius: 15px;
+  background: #a78bfa0c;
+  text-align: center;
+  color: #ccc;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.video-upload:hover {
+  border-color: #a78bfa;
+  background: #a78bfa18;
+}
+
+.video-upload input {
+  display: block;
+  max-width: 100%;
+  margin: 18px auto 0;
+  color: #aaa;
+}
+
+.video-preview {
+  margin-top: 30px;
+  padding: 15px;
+  border: 1px solid #ffffff20;
+  border-radius: 15px;
+  background: #111;
+}
+
+.video-preview video {
+  display: block;
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #000;
+}
+
+.video-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.video-filter-btn {
+  padding: 12px 20px;
+  border: 1px solid #ffffff30;
+  border-radius: 8px;
+  background: #17131f;
+  color: #ddd;
+  transition: .3s;
+}
+
+.video-filter-btn:hover,
+.video-filter-btn.active {
+  background: #a78bfa;
+  border-color: #a78bfa;
+  color: #080808;
+}
+
+.video-note {
+  margin-top: 18px;
+  color: #999;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* ABOUT AND CONTACT */
+
 .about-section,
 .contact-section {
   width: min(850px, 92%);
   margin: 0 auto;
-  padding: 90px 0;
+  padding: 100px 0;
   text-align: center;
   border-top: 1px solid #ffffff15;
 }
@@ -411,7 +500,9 @@ footer > a:last-child {
 }
 
 @keyframes neonPulse {
-  to { box-shadow: 0 0 35px #a78bfa; }
+  to {
+    box-shadow: 0 0 35px #a78bfa;
+  }
 }
 
 .glass-demo {
@@ -457,7 +548,9 @@ footer > a:last-child {
 }
 
 @keyframes gradientMove {
-  50% { background-position: 100% 50%; }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .particles-demo {
@@ -486,7 +579,10 @@ footer > a:last-child {
 }
 
 @keyframes particleMove {
-  to { transform: translateY(-35px); opacity: .3; }
+  to {
+    transform: translateY(-35px);
+    opacity: .3;
+  }
 }
 
 .ripple-demo {
@@ -510,7 +606,10 @@ footer > a:last-child {
 }
 
 @keyframes ripple {
-  to { transform: scale(1.6); opacity: 0; }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
 .reveal-demo {
@@ -521,8 +620,12 @@ footer > a:last-child {
 }
 
 @keyframes reveal {
-  0% { clip-path: inset(0 100% 0 0); }
-  50%, 100% { clip-path: inset(0); }
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  50%, 100% {
+    clip-path: inset(0);
+  }
 }
 
 .floating-demo {
@@ -535,7 +638,9 @@ footer > a:last-child {
 }
 
 @keyframes floating {
-  50% { transform: translateY(-18px); }
+  50% {
+    transform: translateY(-18px);
+  }
 }
 
 .glitch-demo {
@@ -547,9 +652,15 @@ footer > a:last-child {
 }
 
 @keyframes glitch {
-  25% { transform: translate(2px, -2px); }
-  50% { transform: translate(-2px, 2px); }
-  75% { transform: translate(1px, 1px); }
+  25% {
+    transform: translate(2px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(1px, 1px);
+  }
 }
 
 .spotlight-demo {
@@ -571,8 +682,14 @@ footer > a:last-child {
 }
 
 @keyframes scrollReveal {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .morph-demo {
@@ -584,7 +701,10 @@ footer > a:last-child {
 }
 
 @keyframes morph {
-  50% { border-radius: 50%; transform: rotate(180deg); }
+  50% {
+    border-radius: 50%;
+    transform: rotate(180deg);
+  }
 }
 
 .matrix-demo {
@@ -600,7 +720,10 @@ footer > a:last-child {
 }
 
 @keyframes matrixMove {
-  to { transform: translateY(12px); opacity: .5; }
+  to {
+    transform: translateY(12px);
+    opacity: .5;
+  }
 }
 
 .holographic-demo {
@@ -615,7 +738,9 @@ footer > a:last-child {
 }
 
 @keyframes holo {
-  50% { background-position: 100% 50%; }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .laser-demo {
@@ -627,7 +752,9 @@ footer > a:last-child {
 }
 
 @keyframes laser {
-  to { box-shadow: 0 0 25px #a78bfa, 0 0 45px #7c3aed; }
+  to {
+    box-shadow: 0 0 25px #a78bfa, 0 0 45px #7c3aed;
+  }
 }
 
 .scanner-demo {
@@ -652,7 +779,9 @@ footer > a:last-child {
 }
 
 @keyframes scan {
-  to { left: 150%; }
+  to {
+    left: 150%;
+  }
 }
 
 .electric-demo {
@@ -664,7 +793,10 @@ footer > a:last-child {
 }
 
 @keyframes electric {
-  to { transform: scale(1.08); opacity: 1; }
+  to {
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
 
 /* MODAL */
@@ -770,6 +902,8 @@ footer > a:last-child {
   font-size: 12px !important;
 }
 
+/* TABLET */
+
 @media (max-width: 900px) {
   .effects-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -778,7 +912,13 @@ footer > a:last-child {
   .hero h1 {
     letter-spacing: -4px;
   }
+
+  .nav-links {
+    gap: 18px;
+  }
 }
+
+/* MOBILE */
 
 @media (max-width: 600px) {
   .navbar {
@@ -786,6 +926,11 @@ footer > a:last-child {
     min-height: 75px;
     flex-wrap: wrap;
     padding: 15px 0;
+  }
+
+  .logo {
+    font-size: 24px;
+    letter-spacing: 3px;
   }
 
   .nav-links {
@@ -831,10 +976,28 @@ footer > a:last-child {
 
   .effects-grid {
     grid-template-columns: 1fr;
+    gap: 22px;
   }
 
   .effects-section {
     padding: 75px 0;
+  }
+
+  .video-lab-section {
+    padding: 75px 0;
+  }
+
+  .video-upload {
+    padding: 25px 15px;
+  }
+
+  .video-filter-buttons {
+    gap: 8px;
+  }
+
+  .video-filter-btn {
+    padding: 10px 13px;
+    font-size: 11px;
   }
 
   .modal {
