@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 const effects = [
@@ -307,6 +307,16 @@ const snippets = {
   }
 };
 
+const videoFilters = [
+  { name: "Original", value: "none" },
+  { name: "Neon", value: "brightness(1.2) contrast(1.4) saturate(1.8) hue-rotate(15deg)" },
+  { name: "Glitch Color", value: "contrast(1.5) saturate(2) hue-rotate(45deg)" },
+  { name: "Black & White", value: "grayscale(1)" },
+  { name: "Soft Blur", value: "blur(2px)" },
+  { name: "Sepia", value: "sepia(1)" },
+  { name: "Cyber", value: "contrast(1.4) saturate(2) hue-rotate(160deg)" }
+];
+
 function EffectPreview({ type }) {
   const preview = {
     neon: <div className="neon-demo">NEON GLOW</div>,
@@ -328,6 +338,7 @@ function EffectPreview({ type }) {
     scanner: <div className="scanner-demo">SCANNING...</div>,
     electric: <div className="electric-demo">⚡ ENERGY</div>
   };
+
   return preview[type];
 }
 
@@ -335,6 +346,41 @@ function App() {
   const [selected, setSelected] = useState(null);
   const [activeTab, setActiveTab] = useState("preview");
   const [copyStatus, setCopyStatus] = useState("");
+
+  const [videoUrl, setVideoUrl] = useState("");
+  const [videoFilter, setVideoFilter] = useState("none");
+  const [videoError, setVideoError] = useState("");
+
+  useEffect(() => {
+    return () => {
+      if (videoUrl) {
+        URL.revokeObjectURL(videoUrl);
+      }
+    };
+  }, [videoUrl]);
+
+  const handleVideoUpload = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("video/")) {
+      setVideoError("Please select a valid video file.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 100 * 1024 * 1024) {
+      setVideoError("Video is too large. Please select a video under 100 MB.");
+      event.target.value = "";
+      return;
+    }
+
+    const newUrl = URL.createObjectURL(file);
+    setVideoUrl(newUrl);
+    setVideoFilter("none");
+    setVideoError("");
+  };
 
   const openEffect = (effect) => {
     setSelected(effect);
@@ -355,12 +401,15 @@ function App() {
     <div className="app">
       <nav className="navbar">
         <a className="logo" href="#home">SNIT<span>.</span></a>
+
         <div className="nav-links">
           <a href="#home">Home</a>
           <a href="#effects">Effects Lab</a>
+          <a href="#video-lab">Video Effects</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </div>
+
         <a className="nav-button" href="#effects">Explore Effects ↗</a>
       </nav>
 
@@ -370,15 +419,19 @@ function App() {
             <span className="live-dot" />
             CREATIVE DEVELOPMENT STUDIO
           </div>
+
           <h1>DESIGN BEYOND<br /><span>LIMITS.</span></h1>
+
           <p>
             Exploring interactive animations, creative effects,
             modern interfaces and digital experiences.
           </p>
+
           <div className="hero-actions">
             <a href="#effects" className="primary-button">Explore Effects ↗</a>
             <a href="https://github.com/siddharthpatel24347-dev" target="_blank" rel="noreferrer" className="secondary-button">GitHub Profile</a>
           </div>
+
           <div className="hero-orb orb-one" />
           <div className="hero-orb orb-two" />
         </section>
@@ -406,19 +459,82 @@ function App() {
                   <span>EXPERIMENT {String(index + 1).padStart(2, "0")}</span>
                   <span>↗</span>
                 </div>
+
                 <div className={`effect-preview ${effect.type}`}>
                   <EffectPreview type={effect.type} />
                 </div>
+
                 <div className="card-bottom">
                   <div>
                     <h3>{effect.name}</h3>
                     <p>{effect.description}</p>
                   </div>
-                  <button className="view-button" onClick={() => openEffect(effect)} aria-label={`View ${effect.name} details`}>↗</button>
+
+                  <button
+                    className="view-button"
+                    onClick={() => openEffect(effect)}
+                    aria-label={`View ${effect.name} details`}
+                  >
+                    ↗
+                  </button>
                 </div>
               </article>
             ))}
           </div>
+        </section>
+
+        {/* PERSON VIDEO EFFECTS LAB */}
+
+        <section className="video-lab-section" id="video-lab">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">UPLOAD / FILTER / PREVIEW</span>
+              <h2>Person Video Effects Lab</h2>
+              <p>Upload your own video and experiment with visual filters.</p>
+            </div>
+            <span className="effect-count">VIDEO STUDIO</span>
+          </div>
+
+          <label className="video-upload">
+            <strong>Choose a video to upload</strong>
+            <p>Select a video from your device (maximum 100 MB).</p>
+            <input
+              type="file"
+              accept="video/*"
+              onChange={handleVideoUpload}
+            />
+          </label>
+
+          {videoError && <p className="video-note">{videoError}</p>}
+
+          {videoUrl && (
+            <div className="video-preview">
+              <video
+                src={videoUrl}
+                controls
+                playsInline
+                style={{ filter: videoFilter }}
+              />
+
+              <div className="video-filter-buttons">
+                {videoFilters.map((filter) => (
+                  <button
+                    key={filter.name}
+                    type="button"
+                    className={`video-filter-btn ${videoFilter === filter.value ? "active" : ""}`}
+                    onClick={() => setVideoFilter(filter.value)}
+                  >
+                    {filter.name}
+                  </button>
+                ))}
+              </div>
+
+              <p className="video-note">
+                Filters change the live preview in your browser. This version
+                does not export or download an edited video file.
+              </p>
+            </div>
+          )}
         </section>
 
         <section className="about-section" id="about">
@@ -449,7 +565,14 @@ function App() {
       {selected && (
         <div className="modal-backdrop" onClick={() => setSelected(null)}>
           <div className="modal effect-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelected(null)} aria-label="Close">×</button>
+            <button
+              className="modal-close"
+              onClick={() => setSelected(null)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+
             <span className="eyebrow">EFFECT DETAILS</span>
             <h2>{selected.name}</h2>
             <p>{selected.description}</p>
@@ -465,20 +588,32 @@ function App() {
             </div>
 
             {activeTab === "preview" && (
-              <p className="modal-note">Live preview. Select HTML Code or CSS Code to view and copy the matching example.</p>
+              <p className="modal-note">
+                Live preview. Select HTML Code or CSS Code to view and copy the matching example.
+              </p>
             )}
 
             {activeTab === "html" && (
               <>
                 <pre className="effect-code"><code>{snippets[selected.type].html}</code></pre>
-                <button className="primary-button copy-button" onClick={() => copyCode(snippets[selected.type].html)}>Copy HTML Code</button>
+                <button
+                  className="primary-button copy-button"
+                  onClick={() => copyCode(snippets[selected.type].html)}
+                >
+                  Copy HTML Code
+                </button>
               </>
             )}
 
             {activeTab === "css" && (
               <>
                 <pre className="effect-code"><code>{snippets[selected.type].css}</code></pre>
-                <button className="primary-button copy-button" onClick={() => copyCode(snippets[selected.type].css)}>Copy CSS Code</button>
+                <button
+                  className="primary-button copy-button"
+                  onClick={() => copyCode(snippets[selected.type].css)}
+                >
+                  Copy CSS Code
+                </button>
               </>
             )}
 
